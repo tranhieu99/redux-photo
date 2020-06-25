@@ -1,7 +1,8 @@
 import React from 'react'
-import { FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label, FormFeedback } from 'reactstrap'
 import propTypes from 'prop-types'
 import Select from 'react-select';
+import { ErrorMessage } from 'formik';
 
 SelectField.propTypes = {
     field: propTypes.object,
@@ -24,7 +25,8 @@ export default function SelectField(props) {
     } = props
     const {name,value } = field
     const selectedOption = options.find(option => option.value === value)
-
+    const {errors,touched} = form
+    const showError = errors[name] && touched[name]
     const onhandleChange = (e) => {
         const selectedValue = e ? e.value : e;
 
@@ -49,9 +51,10 @@ export default function SelectField(props) {
             onChange = {onhandleChange}
             value = {selectedOption}
             options={options}
+            className = {showError ? 'is-invalid' : ""}
           />
         </FormGroup>
-  
+        <ErrorMessage name = {name}  component = {FormFeedback} />
         </div>
     )
 }

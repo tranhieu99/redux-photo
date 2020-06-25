@@ -8,7 +8,8 @@ import Images from 'constants/images';
 import { Formik, Form, FastField } from 'formik';
 import InputField from 'custom-fields/InputField'
 import SelectField from 'custom-fields/SelectField';
-
+import RandomPhotoField from 'custom-fields/RandomPhotoField';
+import * as yup from 'yup'
 // import { PHOTO_CATEGORY_OPTIONS } from '../../../../constants/global';
 // import Images from '../../../../constants/images';
 
@@ -23,12 +24,20 @@ PhotoForm.defaultProps = {
 function PhotoForm(props) {
   const initialValues = {
     title : '',
-    categoryId : null
+    categoryId : null,
+    photo: ''
   }
+  const validationSchema = yup.object().shape({
+    title: yup.string().required("This field is require"),
+    categoryId: yup.number().required('This field is require'),
+    photo: yup.string().required('This field is require')
+  })
   // npm i --save react-select
   return (
   <Formik
   initialValues = {initialValues}
+  onSubmit = {values => { console.log(values)}}
+  validationSchema = {validationSchema}
   >
     {formikProps => {
       // do smt ... 
@@ -53,18 +62,15 @@ function PhotoForm(props) {
             options={PHOTO_CATEGORY_OPTIONS}
 
           />
-        <FormGroup>
-          <Label for="categoryId">Photo</Label>
-  
-          <div><Button type="button" outline color="primary">Random a photo</Button></div>
-          <div>
-            <img width="200px" height="200px" src={Images.COLORFUL_BG} alt="colorful background" />
-          </div>
-        </FormGroup>
-  
-        <FormGroup>
-          <Button color="primary">Add to album</Button>
-        </FormGroup>
+          <FastField 
+          name ="photo"
+          component = {RandomPhotoField}
+          label ="Photo" />
+          <FormGroup>
+            <Button type ="submit" color ="success"> 
+            Submit 
+            </Button>
+          </FormGroup>
       </Form>
       )
     }}
