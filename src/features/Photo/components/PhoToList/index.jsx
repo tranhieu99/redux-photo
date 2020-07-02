@@ -5,14 +5,17 @@ import Photo from 'features/Photo'
 import PhotoCard from '../PhotoCard'
 PhoToList.propTypes = {
 photos: propTypes.array,
-handleRemovePhoto: propTypes.func
+handleRemovePhoto: propTypes.func,
+handleEditClick: propTypes.func
 }
 PhoToList.defaultProps = {
     photos: [],
-    handleRemovePhoto: null
+    handleRemovePhoto: null,
+    handleEditClick:null
 }
 export default function PhoToList(props) {
-    const {photos, handleRemovePhoto} = props;
+    const {photos, handleRemovePhoto, handleEditClick
+    } = props;
     return (
         <Row>
         {photos.map((item,index) => {
@@ -21,6 +24,7 @@ export default function PhoToList(props) {
                 <PhotoCard 
                 photo = {item}
                 handleRemovePhoto = {handleRemovePhoto}
+                handleEditClick = {handleEditClick}
                 />
             </Col>
             )

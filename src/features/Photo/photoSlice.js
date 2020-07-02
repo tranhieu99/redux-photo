@@ -85,10 +85,15 @@ const photo = createSlice({
         },
         removePhoto: (state,action) => {
           return state.filter(item => item.id !== action.payload)
+        },
+        updatePhoto: (state,action) => {
+          const photoFound = state.findIndex(item => item.id === action.payload.id)
+        console.log(photoFound)
+          state[photoFound] = action.payload; 
         }
     }
 })
 
  const {reducer,actions} = photo
-export const {addPhoto,removePhoto} = actions
+export const {addPhoto,removePhoto,updatePhoto} = actions
 export default reducer

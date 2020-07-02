@@ -4,14 +4,16 @@ import './PhotoCard.scss'
 import { Button } from 'reactstrap';
 PhotoCard.propTypes = {
     photo: propTypes.object,
-    handleRemovePhoto: propTypes.func
+    handleRemovePhoto: propTypes.func,
+    handleEditClick:propTypes.func
 }
 PhotoCard.defaultProps = {
     photo: {},
-    handleRemovePhoto: null
+    handleRemovePhoto: null,
+    handleEditClick: null
 }
 export default function PhotoCard(props) {
-    const {photo, handleRemovePhoto} = props;
+    const {photo, handleRemovePhoto, handleEditClick} = props;
 
     return (
         <div className = "photo">
@@ -22,7 +24,7 @@ export default function PhotoCard(props) {
                 </div>
                 <div className="photo__actions">
                     <div className ="photo__button--edit">
-                        <Button color = "light" outline size = "sm"> Edit </Button>
+                        <Button color = "light" outline size = "sm" onClick = {() => handleEditClick(photo.id)}> Edit </Button>
                     </div>
                     <div className ="photo__button--remove">
                     <Button color = "danger "outline size = "sm" onClick = {() => handleRemovePhoto(photo.id)}> Delete </Button>
