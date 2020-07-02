@@ -22,6 +22,7 @@ PhotoForm.defaultProps = {
 }
 
 function PhotoForm(props) {
+  console.log(props.onSubmit)
   const initialValues = {
     title : '',
     categoryId : null,
@@ -36,13 +37,12 @@ function PhotoForm(props) {
   return (
   <Formik
   initialValues = {initialValues}
-  onSubmit = {values => { console.log(values)}}
+  onSubmit = {props.onSubmit}
   validationSchema = {validationSchema}
   >
     {formikProps => {
       // do smt ... 
       const {values,errors, touched} = formikProps
-      console.log({values,errors,touched})
       return(
         <Form>
           <FastField 
